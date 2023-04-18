@@ -1,0 +1,19 @@
+div {
+    text-align: center;
+    margin-top: 1%;
+    padding: 0px;
+    color: aquamarine;
+}
+
+.mainPost {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+th, td {
+    text-align: center;
+    border: 1px solid #007777;
+    background: #002222;
+}
