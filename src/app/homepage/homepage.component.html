@@ -5,8 +5,6 @@
     <h3>Boards:</h3>
     <br/>
     <ul>
-        <li><a href="../board/">Random</a></li>
-        <li><a href="../board/">Site-development</a></li>
-        <li><a href="../board/">Technology</a></li>
+        <li *ngFor="let board of this.boardServ.boardList"><a (click)="boardServ.boardChange(board);">{{board}}</a></li>
     </ul> 
 </div>

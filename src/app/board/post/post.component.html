@@ -1,48 +1,38 @@
-<div>
-    board name
-</div>
-
-<div>
-    Posting mode: New thread
-    <br /><br />
-    <a href="/homepage">Return to homepage</a>
-</div>
-
 <div class="mainPost">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data" action="src/app/shared/images/">
         <table>
             <tbody>
                 <tr>
                     <th>Name</th>
-                    <td><input type="text"></td>
+                    <td><input type="text" [(ngModel)]="postObject['name']" name="name"></td>
                 </tr>
                 <tr>
                     <th><label>Email</label></th>
-                    <td><input type="text"></td>
+                    <td><input type="text" [(ngModel)]="postObject['email']" name="email"></td>
                 </tr>
                 <tr>
                     <th><label>Subject</label></th>
-                    <td><input type="text"></td>
+                    <td><input type="text" [(ngModel)]="postObject['subject']" name="subject"></td>
                 </tr>
                 <tr>
                     <th><label>Comment</label></th>
-                    <td><textarea rows="3" cols="30"></textarea></td>
+                    <td><textarea rows="3" cols="30" [(ngModel)]="postObject['content']" name="content"></textarea></td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <th><label>File</label></th>
                     <td>
-                        <input type="file">
+                        <input type="file" [(ngModel)]="postObject['pImage']" name="pImage">
                     </td>
-                </tr>
+                </tr>-->
                 <tr>
-                    <th><label>Passwrod</label></th>
+                    <th><label>Password</label></th>
                     <td>
-                        <input type="password">
+                        <input type="password" [(ngModel)]="postObject['password']" name="password">
                     </td>
                 </tr>
                 <tr>
                     <th colspan="2">
-                        <input type="submit" value="New Post">
+                        <input type="submit" name="submit" (click)="addPost()" value="New Post">
                     </th>
                 </tr>
             </tbody>

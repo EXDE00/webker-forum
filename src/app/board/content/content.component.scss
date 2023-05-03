@@ -1,0 +1,26 @@
+.post {
+    border-radius: 10px;
+    background-color: rgb(64,64,64);
+    width: fit-content;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.reply {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.name{
+    color: violet;
+}
+
+.subject {
+    font-weight: bold;
+    color: white;
+}
+
+.post-no{
+    font-size: small;
+    color: greenyellow;
+}
