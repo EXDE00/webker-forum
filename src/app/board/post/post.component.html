@@ -1,22 +1,22 @@
 <div class="mainPost">
-    <form method="post" enctype="multipart/form-data" action="src/app/shared/images/">
+    <form [formGroup]="postForm" (ngSubmit)="addPost()">
         <table>
             <tbody>
                 <tr>
                     <th>Name</th>
-                    <td><input type="text" [(ngModel)]="postObject['name']" name="name"></td>
+                    <td><input type="text" formControlName="name" name="name"></td>
                 </tr>
                 <tr>
                     <th><label>Email</label></th>
-                    <td><input type="text" [(ngModel)]="postObject['email']" name="email"></td>
+                    <td><input type="text" name="email" formControlName="email"></td>
                 </tr>
                 <tr>
                     <th><label>Subject</label></th>
-                    <td><input type="text" [(ngModel)]="postObject['subject']" name="subject"></td>
+                    <td><input type="text" formControlName="subject" name="subject"></td>
                 </tr>
                 <tr>
                     <th><label>Comment</label></th>
-                    <td><textarea rows="3" cols="30" [(ngModel)]="postObject['content']" name="content"></textarea></td>
+                    <td><textarea rows="3" cols="30" formControlName="content" name="content"></textarea></td>
                 </tr>
                 <!--<tr>
                     <th><label>File</label></th>
@@ -27,12 +27,18 @@
                 <tr>
                     <th><label>Password</label></th>
                     <td>
-                        <input type="password" [(ngModel)]="postObject['password']" name="password">
+                        <input type="password" formControlName="password" name="password">
+                    </td>
+                </tr>
+                <tr *ngIf="this.auth.userLoggedIn">
+                    <th><label>Post as anonymous</label></th>
+                    <td>
+                        <input type="checkbox" formControlName="postAsAnon" name="postAsAnon">
                     </td>
                 </tr>
                 <tr>
                     <th colspan="2">
-                        <input type="submit" name="submit" (click)="addPost()" value="New Post">
+                        <input type="submit" name="submit" value="New Post">
                     </th>
                 </tr>
             </tbody>

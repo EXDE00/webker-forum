@@ -3,7 +3,7 @@
         <b><span class="name">{{c.name}} </span></b>
         <span class="subject">{{c.subject}} </span>
 
-        <span class="ip" *ngIf="c.ip && this.boardServ.adminStatus == 1">{{c.ip}} </span>
+        <!--<span class="ip" *ngIf="c.ip && this.boardServ.adminStatus == 1">{{c.ip}} </span>-->
 
         <span class="date">{{ c.date | dateFormatPipe }} </span>
         <span class="post-no" *ngIf="c.id">No.{{c.id}} </span>
@@ -11,11 +11,11 @@
         <span class="reply"><a><b>[Reply]</b></a></span>
         <br/>
 
-        <sub><span class="replies">>>No.2 </span></sub>
+        <!--<sub><span class="replies">>>No.2 </span></sub>-->
         <br/><br/>
 
-        <span class="filename" *ngIf="c.pImageName; else elsePImName">{{c.pImageName}}</span>
-        <ng-template #elsePImName>nofile</ng-template>
+        <!--<span class="filename" *ngIf="c.pImageName; else elsePImName">{{c.pImageName}}</span>
+        <ng-template #elsePImName>nofile</ng-template>-->
     </div>  
     <div class="body">
         <img class="post-image" width="200" *ngIf="c.pImage" src="{{c.pImage}}">

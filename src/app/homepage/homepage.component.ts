@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BoardManagerService } from '../services/board-manager.service';
 
 @Component({
@@ -7,9 +7,13 @@ import { BoardManagerService } from '../services/board-manager.service';
   styleUrls: ['./homepage.component.scss']
 })
 
-export class HomepageComponent {
-  forumName: String = "TMP name";
+export class HomepageComponent implements OnInit {
+  forumName: String = "Webker 2023 forum";
 
   constructor(protected boardServ: BoardManagerService ) { }
+
+  ngOnInit(){
+    this.boardServ.readAllBoards();
+  }
 
 }

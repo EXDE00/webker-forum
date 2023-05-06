@@ -1,9 +1,9 @@
 <div>
-    <h1>{{boardServ.activeBoard}}</h1>
+    <h1 *ngIf="boardServ.activeBoard">{{boardServ.activeBoard.name}}</h1>
 </div>
 
 <div>
-    <b>Posting mode: {{postType}}</b>
+    <b>Posting mode: {{this.boardServ.postMode}}</b>
     <br /><br />
     <a routerLink="/homepage">Return to homepage</a>
 </div>

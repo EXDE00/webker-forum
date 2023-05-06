@@ -8,11 +8,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent {
-  postType = "postType";
 
   constructor(protected boardServ: BoardManagerService, private router: Router){}
 
   ngOnInit(){
-    this.boardServ.activeBoard = this.router.url.split('/').pop();
+    let name: string | undefined = this.router.url.split('/').pop();
+    this.boardServ.readBoardByName(name as string);
   }
 }

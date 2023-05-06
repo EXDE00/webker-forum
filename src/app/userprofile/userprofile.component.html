@@ -1,1 +1,32 @@
-<p>userprofile works!</p>
+<div class="container">
+    <div class="authBox" *ngIf="this.authService.userLoggedIn">
+        <div class="loggedInUserBox">
+            <!--TODO
+                - user info(mod)
+                - logout
+            -->
+            <a (click)="onLogout()">Logout</a>
+        </div>
+    </div>
+    <div class="authBox" *ngIf="!this.authService.userLoggedIn">
+        <div class="anonymousUserBox">
+            <a (click)="activateLogin()">Login</a>
+            <br />
+            <br />
+            <a (click)="activateSignup()">Register</a>
+        </div>
+    </div>
+    <div class="authActionBox">
+        <div class="authBox login" *ngIf="loginActive">
+            <app-login></app-login>
+        </div>
+        <div class="authBox signup" *ngIf="signupActive">
+            <app-signup (regEvent)="activateLogin()"></app-signup>
+        </div>
+    </div>
+    <div>
+        <a routerLink="/homepage">Go to homepage</a>
+    </div>
+    TODO
+        - user info(mod)
+</div>

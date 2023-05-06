@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -6,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+
+  constructor(protected user: UserService, protected auth: AuthService){}
 
 }
