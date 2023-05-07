@@ -18,7 +18,6 @@ import { Timestamp } from '@angular/fire/firestore';
 export class PostComponent {
 
   postInp: any = {};
-  postObject: Post = new Post();
   postForm: FormGroup = new FormGroup({
     name: new FormControl(''),
     email: new FormControl(''),
@@ -29,13 +28,12 @@ export class PostComponent {
   });
 
   constructor(private boardServ: BoardManagerService,
-    private postService: PostService, private threadService: ThreadService,
+    private threadService: ThreadService,
     protected auth: AuthService, protected userService: UserService) { }
 
   addPost() {
-
     //If we're creating a new thread
-    if (this.boardServ.postMode === 'New thread') {
+    if (!this.threadService.threadActive) {
       let threadObject: Thread = new Thread();
       threadObject.email = this.postForm.get('email')?.value;
       threadObject.subject = this.postForm.get('subject')?.value;
@@ -54,25 +52,30 @@ export class PostComponent {
         threadObject.name = 'Anonymous';
       }
 
-
       this.threadService.createThread(threadObject);
-
       //If we're creating a new comment/post
-    } else { //TODO ADD BOARDREF, USERREF
-      this.postObject.date = new Date();
-      this.postObject.email = this.postForm.get('email')?.value;
-      this.postObject.subject = this.postForm.get('subject')?.value;
-      this.postObject.content = this.postForm.get('content')?.value;
-      this.postObject.password = this.postForm.get('password')?.value;
-      if (!this.postForm.get('postAsAnon')?.value) {
-        this.postObject.name = this.postForm.get('name')?.value;
+    } 
+    else {
+      let postObject: Post = new Post();
+      postObject.date = Timestamp.fromDate(new Date());
+      postObject.email = this.postForm.get('email')?.value;
+      postObject.content = this.postForm.get('content')?.value;
+      postObject.subject = this.postForm.get('subject')?.value;
+      postObject.password = this.postForm.get('password')?.value;
+      postObject.threadRef = this.threadService.currThread?.id as string;
+      if(this.auth.userLoggedIn){
+        postObject.userRef = this.userService.activeUser?.id as string;
       } else {
-        this.postObject.name = 'Anonymous';
+        postObject.userRef = null;
       }
 
-      //this.threadService.createThread(this.postObject);
+      if (!this.postForm.get('postAsAnon')?.value) {
+        postObject.name = this.postForm.get('name')?.value;
+      } else {
+        postObject.name = 'Anonymous';
+      }
 
-      //this.boardServ.postList.push({ ...this.postObject });
+      this.threadService.createPost(postObject);
     }
   }
 

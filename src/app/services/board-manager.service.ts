@@ -4,8 +4,9 @@ import { Post } from '../shared/models/post-model';
 import { Board } from '../shared/models/board-model';
 import { AngularFirestore, QuerySnapshot } from '@angular/fire/compat/firestore';
 import { Timestamp } from '@angular/fire/firestore'
-import { Observable } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { Thread } from '../shared/models/thread-model';
+import { withXsrfConfiguration } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -14,16 +15,16 @@ export class BoardManagerService {
 
   collectionName = "Boards";
   activeBoard?: Board = new Board();
-  adminStatus: number = 0; //move to auth
 
   postMode: string = "New thread";
   postList: Array<Thread> = []; //pull from db
+  //postList: Observable<Thread[]> = new Observable;
   boardList: Array<Board> = []; //pull from db
 
   constructor(private router: Router, private afs: AngularFirestore) { }
 
   createBoard(board: Board) {
-    return this.afs.collection<Board>(this.collectionName).doc(board.id).set(board);
+    return this.afs.collection<Board>(this.collectionName).add({...board});
   }
 
   readAllBoards() {
@@ -58,8 +59,31 @@ export class BoardManagerService {
     return result;
   }
 
+  /*readThreadsByBoard(brd: Board){
+    let ret = this.afs.collection<Thread>("Threads", ref => ref.where('boardRef', '==', brd.id)).get();
+
+    let ret = this.afs.collection<Thread>("Threads", ref => ref.where('boardRef', '==', brd.id)).get();
+      const threadList = ret.pipe(map((docs: { docs: any[]; }) => docs.docs.map(doc => {
+      const data = doc.data();
+      const id = doc.id;
+      return {id, ...data };
+    })));
+
+    threadList.subscribe(posts => {
+      this.postList = of(posts);
+    })
+    return threadList;
+    ret.subscribe(docs => {
+      this.postList = docs.docs;
+      docs.forEach(doc => {
+        this.postList
+      })
+    });
+    return ret;
+  }*/
+
   readThreadsByBoard(brd: Board) {
-    console.log("serv   " + brd.id)
+    console.log("readThreadsByBoard: " + brd.id)
     let result: Observable<QuerySnapshot<Thread>> = this.afs.collection<Thread>("Threads", ref => ref.where("boardRef", "==", brd.id)).get();
     //set the variables and the user
     result.subscribe((value) => {
@@ -71,7 +95,7 @@ export class BoardManagerService {
           v.data()['content'] as string,
           v.data()['subject'] as string,
           v.data()['password'] as string,
-          v.data()['id'] as string,
+          v.id,
           v.data()['boardRef'] as string,
           v.data()['userRef'] as string
         ));

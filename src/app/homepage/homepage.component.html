@@ -1,10 +1,30 @@
 <div class="hp">
     <h1>Welcome to {{forumName}}!</h1>
+    <br />
+    <h3><a routerLink='/about'>About</a></h3>
 </div>
 <div class="boards">
     <h3>Boards:</h3>
-    <br/>
+    <br />
     <ul>
-        <li *ngFor="let board of this.boardServ.boardList"><a (click)="boardServ.boardChange(board);">{{board.name}}</a></li>
-    </ul> 
+        <li *ngFor="let board of this.boardServ.boardList"><a (click)="boardServ.boardChange(board);">{{board.name}}</a>
+            <span *ngIf="this.userServ.activeUser?.role >= 3">&nbsp;<a (click)="onDelete(board)">Delete</a></span>
+            <span *ngIf="this.userServ.activeUser?.role >= 3">&nbsp;<a (click)="onModify(board)">Modify</a></span>
+        </li>
+    </ul>
+</div>
+<div *ngIf="this.userServ.activeUser?.role >= 3">
+    <div>
+        <p>Data field for board. (click modify to modify data, click create to create new board)</p>
+
+        <form [formGroup]="boardForm" (ngSubmit)="addBoard($event)">
+            <label for="name">Board new name</label>
+            <input type="text" formControlName="name" name="name">
+            <br />
+            <label for="name">Board new description</label>
+            <input type="text" formControlName="description" name="description">
+            <br />
+            <input type="submit" value="New Board">
+        </form>
+    </div>
 </div>

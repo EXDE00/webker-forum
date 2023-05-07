@@ -3,11 +3,12 @@
 </div>
 
 <div>
-    <b>Posting mode: {{this.boardServ.postMode}}</b>
+    <b *ngIf="!this.threadServ.threadActive">Posting mode: New Thread</b>
+    <b *ngIf="this.threadServ.threadActive">Posting mode: New Comment</b>
     <br /><br />
     <a routerLink="/homepage">Return to homepage</a>
 </div>
 <app-post></app-post>
 <hr>
-<app-content></app-content>  
+<app-content></app-content>
 <hr>

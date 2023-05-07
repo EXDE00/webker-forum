@@ -11,6 +11,7 @@ const routes: Routes = [
     redirectTo: 'homepage'
   },
   { path: 'userprofile', loadChildren: () => import('./userprofile/userprofile.module').then(m => m.UserprofileModule) },
+  { path: 'about', loadChildren: () => import('./about/about.module').then(m => m.AboutModule) },
   { 
     path: '**',
     redirectTo: '/not-found'

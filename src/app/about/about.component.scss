@@ -1,0 +1,25 @@
+div {
+    text-align: center;
+}
+
+span {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+
+table {
+    margin: auto;
+    text-align: center;
+    border-spacing: 10px;
+}
+
+table, th, td {
+    border: 1px solid green;
+}
+
+tr {
+    padding: 5px;    
+}
